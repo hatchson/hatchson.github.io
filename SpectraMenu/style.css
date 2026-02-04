@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, #0b1d2e, #050b15 70%);
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    text-align: center;
+}
+
+.logo {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    box-shadow: 0 0 40px rgba(0, 200, 255, 0.35);
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    background: linear-gradient(90deg, #5ac8fa, #7b61ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
