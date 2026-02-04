@@ -1,1 +1,7 @@
-a
+{
+  "admins": [
+    {
+      "playerId": "C701CA5E99BC620C",
+      "username": "Hatchson"
+    }       ]
+}
