@@ -1,0 +1,114 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at 20% 20%, #0f2027, #0a0f1c 60%);
+  color: white;
+  overflow-x: hidden;
+}
+
+/* Subtle moving background glow */
+.bg-animation {
+  position: fixed;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background: radial-gradient(circle, rgba(0, 200, 255, 0.15), transparent 60%);
+  animation: floatBg 18s linear infinite;
+  z-index: 0;
+}
+
+@keyframes floatBg {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(10%, 10%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Layout */
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: auto;
+  padding: 80px 20px 40px;
+  text-align: center;
+}
+
+/* Title */
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  background: linear-gradient(90deg, #5ac8fa, #7b61ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: #9bb3d1;
+  margin-bottom: 50px;
+  font-size: 1.1rem;
+}
+
+/* Cards */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+}
+
+.card {
+  text-decoration: none;
+  color: white;
+  padding: 25px;
+  border-radius: 18px;
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 0 rgba(0, 200, 255, 0);
+}
+
+.card h2 {
+  margin-bottom: 10px;
+  font-size: 1.4rem;
+}
+
+.card p {
+  color: #9bb3d1;
+  font-size: 0.95rem;
+}
+
+/* Hover glow effect */
+.card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(0, 200, 255, 0.6);
+  box-shadow: 0 0 25px rgba(0, 200, 255, 0.25);
+}
+
+/* Footer */
+footer {
+  margin-top: 70px;
+  color: #6f86a3;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .title {
+    font-size: 2.2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+}
