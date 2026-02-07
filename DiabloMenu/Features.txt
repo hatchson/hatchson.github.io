@@ -1,0 +1,19 @@
+All Features Include:
+  Settings:
+Movement Settings:
+Menu Settings:
+  Movement:
+Platforms
+Tp Gun
+  Safety:
+Anti Report
+No Rpc Kick
+  Advantage:
+Instant Tag All
+Tag Self
+Tag Gun
+  Fun:
+Note: All Bug Mods Require you to pickup the bug first as this gives you ownership of the bug kind of like master client if someone else picks up the bug it breaks
+Bug Spin
+Bug Telekineses
+Bug Esp
