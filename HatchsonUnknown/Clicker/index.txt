@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Grosh Clicker 1.0</title>
+  <link rel="icon" href="https://i.imgur.com/DNtz8B0.png"/>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #1e293b;
+      --accent: #facc15;
+      --accent-dark: #eab308;
+      --text: #e2e8f0;
+      --glow: 0 0 12px rgba(250, 204, 21, 0.7);
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body.space {
+      background: #000 url('https://www.transparenttextures.com/patterns/stardust.png');
+      background-size: cover;
+    }
+
+    .topbar {
+      text-align: center;
+      padding: 1rem;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid #334155;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    h2 {
+      margin: 0.3rem 0;
+      font-size: 2.4rem;
+      color: var(--accent);
+      text-shadow: var(--glow);
+    }
+
+    .cps {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 280px 1fr 280px;
+      gap: 1rem;
+      padding: 1rem;
+      height: calc(100vh - 80px);
+      box-sizing: border-box;
+    }
+
+    .shop, .skills-leaderboard {
+      background: var(--panel);
+      border-radius: 12px;
+      padding: 1.2rem;
+      overflow-y: auto;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+
+    .main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .grosh-btn {
+      width: 260px;
+      height: 260px;
+      object-fit: contain;
+      cursor: pointer;
+      transition: all 0.12s ease;
+      border-radius: 50%;
+      box-shadow: var(--glow);
+    }
+
+    .grosh-btn:hover {
+      transform: scale(1.08);
+      filter: brightness(1.15) drop-shadow(0 0 20px var(--accent));
+    }
+
+    .grosh-btn:active {
+      transform: scale(0.92);
+    }
+
+    .panel-item {
+      background: #334155;
+      padding: 0.9rem;
+      margin: 0.6rem 0;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.15s;
+      user-select: none;
+    }
+
+    .panel-item:hover {
+      background: #475569;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    }
+
+    .panel-item.locked {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .panel-item.locked:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    button {
+      background: var(--accent);
+      color: #0f172a;
+      border: none;
+      padding: 0.7rem 1.2rem;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 0.4rem 0.3rem 0 0;
+      transition: all 0.15s;
+    }
+
+    button:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+    }
+
+    .particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: explode 0.9s forwards;
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .float-text {
+      position: absolute;
+      font-weight: bold;
+      color: var(--accent);
+      text-shadow: 0 0 10px var(--accent);
+      pointer-events: none;
+      animation: floatUp 1.2s forwards;
+    }
+
+    @keyframes explode {
+      to {
+        transform: translate(var(--dx), var(--dy)) scale(0.3);
+        opacity: 0;
+      }
+    }
+
+    @keyframes floatUp {
+      0%   { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-120px); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <h2 id="groshDisplay">0 Grosh</h2>
+  <div class="cps">Per second: <span id="cps">0</span></div>
+  <button onclick="toggleSpace()">🌌 Space Mode</button>
+</div>
+
+<div class="container">
+  <div class="shop">
+    <h3>Shop</h3>
+    <div id="shopItems"></div>
+  </div>
+
+  <div class="main">
+    <img class="grosh-btn"
+         src="https://i.imgur.com/DNtz8B0.png"
+         alt="Grosh"
+         onclick="clickGrosh(event)">
+  </div>
+
+  <div class="skills-leaderboard">
+    <h3>Skill Tree</h3>
+    <div id="skills"></div>
+
+    <div style="margin:1.5rem 0;">
+      <button onclick="saveCloud()">💾 Cloud Save</button>
+      <button onclick="loadCloud()">☁️ Load</button>
+    </div>
+
+    <h3>Leaderboard</h3>
+    <div id="leaderboard"></div>
+  </div>
+</div>
+
+<script>
+// ────────────────────────────────────────────────
+let grosh = 0;
+let cps   = 0;
+let username = "Player" + Math.floor(Math.random() * 9000 + 1000);
+
+// Format large numbers (k, M, B, T...)
+function format(n) {
+  if (n < 1e3) return Math.floor(n);
+  const units = ["", "k", "M", "B", "T", "Qa", "Qi"];
+  let u = 0;
+  while (n >= 1e3 && u < units.length - 1) { n /= 1e3; u++; }
+  return n.toFixed(n < 10 ? 1 : 0) + units[u];
+}
+
+// ────────────────────────────────────────────────
+const skillTree = {
+  clickBoost: { cost:  10, owned: false, desc: "+1 per click"       },
+  cpsBoost:   { cost:  25, owned: false, desc: "+5 CPS"             },
+  megaBoost:  { cost: 120, owned: false, desc: "×2 CPS multiplier"  },
+};
+
+const upgrades = {
+  Cursor:   { baseCost:  50, cost:  50, power: 1,   count: 0 },
+  Factory:  { baseCost: 220, cost: 220, power: 4.5, count: 0 },
+  // you can easily add more later
+};
+
+function updateUI() {
+  document.getElementById("groshDisplay").innerText = format(grosh) + " Grosh";
+  document.getElementById("cps").innerText = format(cps);
+}
+
+function clickGrosh(e) {
+  const add = 1 + (skillTree.clickBoost.owned ? 1 : 0);
+  grosh += add;
+
+  spawnParticles(e.clientX, e.clientY);
+  spawnFloatText(e.clientX, e.clientY, "+" + format(add));
+
+  updateUI();
+}
+
+// ─── Particles ──────────────────────────────────────
+function spawnParticles(x, y) {
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement("div");
+    p.className = "particle";
+    const angle = Math.random() * Math.PI * 2;
+    const dist = 40 + Math.random() * 120;
+    const dx = Math.cos(angle) * dist + "px";
+    const dy = Math.sin(angle) * dist + "px";
+    p.style.setProperty("--dx", dx);
+    p.style.setProperty("--dy", dy);
+    p.style.left = x + "px";
+    p.style.top  = y + "px";
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 1200);
+  }
+}
+
+function spawnFloatText(x, y, txt) {
+  const t = document.createElement("div");
+  t.className = "float-text";
+  t.innerText = txt;
+  t.style.left = x + "px";
+  t.style.top  = y + "px";
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 1400);
+}
+
+// ─── Passive income (delta-time aware) ──────────────
+let lastTime = performance.now();
+function gameLoop(now) {
+  const dt = (now - lastTime) / 1000;
+  lastTime = now;
+
+  grosh += cps * dt;
+  updateUI();
+
+  requestAnimationFrame(gameLoop);
+}
+requestAnimationFrame(gameLoop);
+
+// ─── Shop ───────────────────────────────────────────
+function renderShop() {
+  const s = document.getElementById("shopItems");
+  s.innerHTML = "";
+  for (const [key, u] of Object.entries(upgrades)) {
+    const div = document.createElement("div");
+    div.className = "panel-item";
+    div.innerHTML = `
+      ${key} (${u.count})<br>
+      +${format(u.power)} CPS<br>
+      Cost: ${format(u.cost)}
+    `;
+    div.onclick = () => buyUpgrade(key);
+    if (grosh < u.cost) div.classList.add("locked");
+    s.appendChild(div);
+  }
+}
+
+function buyUpgrade(key) {
+  const u = upgrades[key];
+  if (grosh >= u.cost) {
+    grosh -= u.cost;
+    cps += u.power;
+    u.count++;
+    u.cost = Math.floor(u.baseCost * Math.pow(1.15, u.count));
+    renderShop();
+    updateUI();
+  }
+}
+
+// ─── Skills ─────────────────────────────────────────
+function renderSkills() {
+  const s = document.getElementById("skills");
+  s.innerHTML = "";
+  for (const [key, sk] of Object.entries(skillTree)) {
+    const div = document.createElement("div");
+    div.className = "panel-item";
+    if (sk.owned) {
+      div.innerHTML = `${sk.desc} <small>(owned)</small>`;
+      div.classList.add("locked");
+    } else {
+      div.innerHTML = `${sk.desc}<br>Cost: ${format(sk.cost)}`;
+      div.onclick = () => buySkill(key);
+      if (grosh < sk.cost) div.classList.add("locked");
+    }
+    s.appendChild(div);
+  }
+}
+
+function buySkill(key) {
+  const sk = skillTree[key];
+  if (!sk.owned && grosh >= sk.cost) {
+    grosh -= sk.cost;
+    sk.owned = true;
+
+    if (key === "clickBoost") { /* already handled in click */ }
+    if (key === "cpsBoost")    cps += 5;
+    if (key === "megaBoost")   cps *= 2;
+
+    renderSkills();
+    updateUI();
+  }
+}
+
+// ─── Space toggle ───────────────────────────────────
+function toggleSpace() {
+  document.body.classList.toggle("space");
+}
+
+// ─── Fake cloud (replace with real endpoint later) ──
+async function saveCloud() {
+  // await fetch("http://localhost:3000/save", { ... });
+  alert(`Saved! (pretend)\n${username}\n${format(grosh)} Grosh`);
+}
+
+async function loadCloud() {
+  // const res = await fetch("...");
+  alert("Loaded! (pretend – numbers unchanged for now)");
+}
+
+// ─── Fake leaderboard ───────────────────────────────
+async function loadLeaderboard() {
+  const board = document.getElementById("leaderboard");
+  board.innerHTML = `
+    1. ${username} – ${format(grosh)}<br>
+    2. GroshKing – 12.4M<br>
+    3. IdleLord – 8.1M<br>
+    ...
+  `;
+}
+setInterval(loadLeaderboard, 8000);
+
+// ─── Init ───────────────────────────────────────────
+renderShop();
+renderSkills();
+updateUI();
+loadLeaderboard();
+</script>
+</body>
+</html>
