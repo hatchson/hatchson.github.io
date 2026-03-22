@@ -73,11 +73,10 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// ── Download button pulse ─────────────────────────────────────────────────────
+// ── Download button effect ─────────────────────────────────────────────────────
 const downloadBtn = document.getElementById('downloadBtn');
 if (downloadBtn) {
     downloadBtn.addEventListener('click', (e) => {
-        e.preventDefault();
         downloadBtn.textContent = '⬇ Download Starting...';
         downloadBtn.style.opacity = '0.8';
         setTimeout(() => {
