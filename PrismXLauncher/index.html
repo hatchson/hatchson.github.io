@@ -1,1 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrismX Launcher — The Ultimate Minecraft Launcher</title>
+    <meta name="description"
+        content="PrismX is a premium, high-performance Minecraft launcher with built-in mod support, Microsoft authentication, and a stunning interface.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="logo.png" alt="PrismX Logo" class="nav-logo-img">
+                <span class="nav-logo-text">PrismX</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#mods">Mods</a></li>
+                <li><a href="#download">Download</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <a href="#download" class="nav-cta">Get Started</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+            <div class="grid-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                Open Source · Free Forever
+            </div>
+            <img src="logo.png" alt="PrismX Logo" class="hero-logo" id="heroLogo">
+            <h1 class="hero-title">
+                The Launcher<br>
+                <span class="gradient-text">Minecraft Deserves</span>
+            </h1>
+            <p class="hero-subtitle">
+                Premium performance. Stunning design. Complete control.
+                PrismX brings Minecraft launching into the modern era.
+            </p>
+            <div class="hero-actions">
+                <a href="#download" class="btn btn-primary">
+                    <span>⬇ Download Free</span>
+                </a>
+                <a href="#features" class="btn btn-secondary">
+                    <span>See Features →</span>
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number" data-target="100">0</span><span class="stat-suffix">+</span>
+                    <span class="stat-label">Versions Supported</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-number" data-target="3">0</span>
+                    <span class="stat-label">Mod Loaders Ready</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-number" data-target="100">0</span><span class="stat-suffix">%</span>
+                    <span class="stat-label">Free &amp; Open Source</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll-hint">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Why PrismX?</span>
+                <h2 class="section-title">Everything you need,<br><span class="gradient-text">nothing you don't.</span>
+                </h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card feature-large">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Lightning Fast</h3>
+                    <p>Optimized launch sequence gets you in-game faster than any other launcher. Asset caching,
+                        parallel downloads, and smart preloading.</p>
+                    <div class="feature-glow"></div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h3>Microsoft Auth</h3>
+                    <p>Secure device-code Microsoft login with Minecraft ownership verification built in.</p>
+                    <div class="feature-glow"></div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📦</div>
+                    <h3>Built-in Mods</h3>
+                    <p>Curate your own mod collection with a simple JSON config file. No fuss UI.</p>
+                    <div class="feature-glow"></div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎮</div>
+                    <h3>All Versions</h3>
+                    <p>Every Minecraft version ever released, from early Beta to the latest snapshot.</p>
+                    <div class="feature-glow"></div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌙</div>
+                    <h3>Premium Dark UI</h3>
+                    <p>A glassmorphism-inspired design with purple accents that feels premium and alive.</p>
+                    <div class="feature-glow"></div>
+                </div>
+                <div class="feature-card feature-large">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>Full Settings Control</h3>
+                    <p>Logout, switch accounts, manage mods, open your mods folder — everything in one place with a
+                        clean Settings tab that doesn't overwhelm you.</p>
+                    <div class="feature-glow"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mods Section -->
+    <section class="mods-section" id="mods">
+        <div class="container">
+            <div class="mods-inner">
+                <div class="mods-text">
+                    <span class="section-label">Mod Manager</span>
+                    <h2 class="section-title">Your mods,<br><span class="gradient-text">your rules.</span></h2>
+                    <p class="mods-desc">Define your built-in mod catalogue in a simple JSON file stored right next to
+                        the launcher. Enable or disable mods before each launch. Your choices are saved automatically.
+                    </p>
+                    <ul class="mods-list">
+                        <li><span class="check">✓</span> Edit <code>BuiltInMods/mods.json</code> to add mods</li>
+                        <li><span class="check">✓</span> Toggle mods on/off per-launch</li>
+                        <li><span class="check">✓</span> One-click Open Mods Folder</li>
+                        <li><span class="check">✓</span> Powered by Fabric mod loader</li>
+                    </ul>
+                </div>
+                <div class="mods-code">
+                    <div class="code-window">
+                        <div class="code-topbar">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="code-filename">BuiltInMods/mods.json</span>
+                        </div>
+                        <pre class="code-body"><code><span class="code-bracket">[</span>
+  <span class="code-brace">{</span>
+    <span class="code-key">"Id"</span>: <span class="code-str">"sodium"</span>,
+    <span class="code-key">"Name"</span>: <span class="code-str">"Sodium"</span>,
+    <span class="code-key">"Description"</span>: <span class="code-str">"FPS booster"</span>,
+    <span class="code-key">"IsEnabled"</span>: <span class="code-bool">true</span>
+  <span class="code-brace">}</span>,
+  <span class="code-brace">{</span>
+    <span class="code-key">"Id"</span>: <span class="code-str">"iris"</span>,
+    <span class="code-key">"Name"</span>: <span class="code-str">"Iris Shaders"</span>,
+    <span class="code-key">"Description"</span>: <span class="code-str">"Shader support"</span>,
+    <span class="code-key">"IsEnabled"</span>: <span class="code-bool">true</span>
+  <span class="code-brace">}</span>
+<span class="code-bracket">]</span></code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section class="download-section" id="download">
+        <div class="container">
+            <div class="download-glow"></div>
+            <div class="download-content">
+                <img src="logo.png" alt="PrismX" class="download-logo">
+                <h2 class="download-title">Ready to play?</h2>
+                <p class="download-subtitle">PrismX is free, open-source, and always will be.</p>
+                <div class="download-actions">
+                    <a href="#" class="btn btn-primary btn-large" id="downloadBtn">
+                        <span>⬇ Download for Windows</span>
+                    </a>
+                </div>
+                <div class="download-meta">
+                    <span>Requires .NET 8.0</span>
+                    <span>·</span>
+                    <span>Windows 10/11</span>
+                    <span>·</span>
+                    <span>Free &amp; Open Source</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About / Footer -->
+    <footer class="footer" id="about">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-brand">
+                    <img src="logo.png" alt="PrismX" class="footer-logo">
+                    <span class="footer-name">PrismX Launcher</span>
+                    <p class="footer-tagline">The Minecraft launcher built with love.</p>
+                </div>
+                <div class="footer-links-group">
+                    <h4>Launcher</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#mods">Mod Manager</a></li>
+                        <li><a href="#download">Download</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-group">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">GitHub</a></li>
+                        <li><a href="#">Report a Bug</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-credit">
+                    Made and Developed by: <span class="creator-name">Hatchson</span>
+                </div>
+                <div class="footer-copy">
+                    © 2025 PrismX Launcher. Not affiliated with Mojang Studios.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
